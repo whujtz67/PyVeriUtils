@@ -11,17 +11,17 @@ class AxiAgentCfg:
         name: str,
         agentId: int,
         busBits: int = 512,
-        MaxNrTxns: int = 8,
+        maxInflightTxns: int = 8,
         randomTxn: bool = True,
         hasWr: bool = True,
         hasRd: bool = True,
-        maxDataBytes: Optional[int] = None,
+        maxDataBytes: Optional[int] = 2,
         bundleCfg: AxiBundleCfg = AxiBundleCfg(),
         timeout_threshold: int = 10000
     ):
         self.agentId = agentId
         self.busBits = busBits
-        self.MaxNrTxns = MaxNrTxns
+        self.maxInflightTxns = maxInflightTxns
         self.randomTxn = randomTxn
         self.hasWr = hasWr
         self.hasRd = hasRd
@@ -34,8 +34,5 @@ class AxiAgentCfg:
 
         self.bundleCfg = bundleCfg
         self.timeout_threshold = timeout_threshold
-
-class AxiTaskInfo:
-   pass
 
 

@@ -51,7 +51,7 @@ class AxFlit(Generic[T]):
             addr   = bdl.bits.addr.value,
             len    = bdl.bits.len.value,
             size   = bdl.bits.size.value,
-            burst  = BurstType.int_to_enum(bdl.bits.burst.value),
+            burst  = BurstType.int_to_enum(int(bdl.bits.burst.value)),
             lock   = bdl.bits.lock.value if bdl.cfg.has_lock else None,
             cache  = bdl.bits.cache.value if bdl.cfg.has_cache else None,
             prot   = bdl.bits.prot.value if bdl.cfg.has_prot else None,
@@ -175,7 +175,7 @@ class RBatch(Generic[T]):
         bus_off_mask = (1 << busBytes) - 1
         offset = ar.addr & bus_off_mask
 
-        datas = [random.randint(0, max_data) << (((beat_bytes * i + offset) & bus_off_mask) * 8) for i in
-                 range(0, ar.len + 1)]
+        datas = [(random.randint(0, max_data) << (((beat_bytes * i + offset) % busBytes) * 8)) & bus_off_mask
+                 for i in range(0, ar.len + 1)]
 
         return cls(ar.id, datas)

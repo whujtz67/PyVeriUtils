@@ -1,4 +1,4 @@
-from Parameters import AxiAgentCfg
+from PyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
 from PyVeriUtils.protocol.AXI4.spec.DutBundle import Axi4Bundle
 from PyVeriUtils.protocol.AXI4.spec.Task import AxTask, WTask, RTask, BTask
 from PyVeriUtils.utils.Common.Queue import Queue

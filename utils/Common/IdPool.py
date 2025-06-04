@@ -1,7 +1,7 @@
 class IdPool:
     ID_EMPTY = 677
 
-    def __init__(self, size, name="id pool", start=0):
+    def __init__(self, size, name="id pool", start = 0):
         self.pool = list(range(start, size + start))
         self.size = size
         self.name = name

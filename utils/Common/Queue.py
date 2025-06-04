@@ -9,7 +9,8 @@ class Queue(Generic[T]):
             depth: Optional[int] = None,
             label: Optional[str] = None
     ):
-        assert depth > 0, "The depth of the queue should be greater than zero!"
+        if depth is not None:
+            assert depth > 0, "The depth of the queue should be greater than zero!"
 
         self.name: str = f"{label}_Queue" if label is not None else "Queue"
 

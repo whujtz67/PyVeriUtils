@@ -1,4 +1,4 @@
-from Parameters import AxiAgentCfg
+from PyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
 from PyVeriUtils.protocol.AXI4.spec.DutBundle import Axi4Bundle
 from PyVeriUtils.protocol.AXI4.spec.Task import AxTask, WTask, RTask, BTask
 from PyVeriUtils.utils.Common.Queue import Queue
@@ -56,7 +56,8 @@ class BaseAxiSlave:
             self.r_queue.enq(
                 RTask.random_gen(
                     ar = self.ar_queue.peek().flit,
-                    cfg = self.cfg,
+                    maxDataBytes = self.cfg.maxDataBytes,
+                    busBytes = self.cfg.busBytes,
                     alloc_cycle = self.dut.cycles.value.integer,
                     timeout_threshold = self.cfg.timeout_threshold,
                     label = self.name

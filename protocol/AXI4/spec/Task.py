@@ -4,7 +4,6 @@ from PyVeriUtils.utils.Common.Task import BaseTask
 from PyVeriUtils.protocol.AXI4.spec.Encodings import Channel
 from PyVeriUtils.protocol.AXI4.spec.DutBundle import AxBundle, WBundle, RBundle, BBundle
 from PyVeriUtils.protocol.AXI4.spec.Flit import AxFlit, WBatch, RBatch, BFlit, WFlit, RFlit
-from PyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
 
 
 class AxTask(BaseTask):
@@ -143,13 +142,14 @@ class RTask(BaseTask):
 	def random_gen(
 			cls,
 			ar: AxFlit,
-			cfg: AxiAgentCfg,
+			maxDataBytes: int,
+			busBytes: int,
 			alloc_cycle: int,
 			timeout_threshold: int = 10000,
 			label: Optional[str] = None
 	) -> "RTask":
 		task = cls(alloc_cycle, timeout_threshold, label)
-		task.batch = RBatch.random_gen(ar, cfg)
+		task.batch = RBatch.random_gen(ar, maxDataBytes, busBytes)
 
 		return task
 

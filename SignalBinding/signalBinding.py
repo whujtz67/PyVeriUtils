@@ -27,6 +27,8 @@ class DutSignal(SignalBinding):
     ) -> None:
         path: str = self.hierarchical_path(suffix, prefix, hierarchy)
 
+        print(f"[Signal Binding] {path}")
+
         setattr(self, suffix, getattr(dut, path))
 
 class DutBundle(SignalBinding):
@@ -39,6 +41,8 @@ class DutBundle(SignalBinding):
     ) -> None:
         for field in fields:
             path: str = self.hierarchical_path(field, prefix, hierarchy)
+
+            print(f"[Signal Binding] {path}")
 
             setattr(self, field, getattr(dut, path))
 

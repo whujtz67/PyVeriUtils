@@ -110,10 +110,10 @@ class RBundle(DecoupledIO):
         """
             Send tasks generated in env to dut.
         """
-        self.bits.id.value   = task.flit.id
-        self.bits.data.value = task.flit.data()  # Beat index for burst transfers
-        self.bits.resp.value = task.flit.resp
-        self.bits.last.value = task.flit.last()
+        self.bits.id.value   = task.batch.id
+        self.bits.data.value = task.batch.data()  # Beat index for burst transfers
+        self.bits.resp.value = task.batch.resp.value
+        self.bits.last.value = task.batch.last()
 
         if self.cfg.has_user:
             self.bits.user.value = task.flit.user
@@ -156,8 +156,8 @@ class Axi4Bundle:
             dut,
             cfg: AxiBundleCfg
     ) -> None:
-        self.aw = AxBundle(dut, cfg.prefix, cfg.hierarchy, cfg.aw) if cfg.aw is not None else None
-        self.w  = WBundle (dut, cfg.prefix, cfg.hierarchy, cfg.w ) if cfg.w  is not None else None
-        self.b  = BBundle (dut, cfg.prefix, cfg.hierarchy, cfg.b ) if cfg.b  is not None else None
-        self.ar = AxBundle(dut, cfg.prefix, cfg.hierarchy, cfg.ar) if cfg.ar is not None else None
-        self.r  = RBundle (dut, cfg.prefix, cfg.hierarchy, cfg.r ) if cfg.r  is not None else None
+        self.aw = AxBundle(dut, f"{cfg.prefix}_aw", cfg.hierarchy, cfg.aw) if cfg.aw is not None else None
+        self.w  = WBundle (dut, f"{cfg.prefix}_w" , cfg.hierarchy, cfg.w ) if cfg.w  is not None else None
+        self.b  = BBundle (dut, f"{cfg.prefix}_b" , cfg.hierarchy, cfg.b ) if cfg.b  is not None else None
+        self.ar = AxBundle(dut, f"{cfg.prefix}_ar", cfg.hierarchy, cfg.ar) if cfg.ar is not None else None
+        self.r  = RBundle (dut, f"{cfg.prefix}_r" , cfg.hierarchy, cfg.r ) if cfg.r  is not None else None

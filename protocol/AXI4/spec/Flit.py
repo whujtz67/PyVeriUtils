@@ -2,10 +2,8 @@
 from dataclasses import dataclass
 import random
 from typing import List, Generic, TypeVar, Optional, Tuple
-from Encodings import BurstType, RespType
+from PyVeriUtils.protocol.AXI4.spec.Encodings import BurstType, RespType
 
-from PyVeriUtils.utils.Common.Counter import UpCounter
-from PyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
 from PyVeriUtils.protocol.AXI4.spec.DutBundle import AxBundle, WBundle, RBundle, BBundle
 
 T = TypeVar('T')
@@ -166,14 +164,15 @@ class RBatch(Generic[T]):
     def random_gen(
             cls,
             ar: AxFlit,
-            cfg: AxiAgentCfg
+            maxDataBytes: int,
+            busBytes: int
     ) -> "RBatch":
         beat_bytes = 1 << ar.size
-        data_bytes = min(beat_bytes, cfg.maxDataBytes) if cfg.maxDataBytes is not None else beat_bytes
+        data_bytes = min(beat_bytes, maxDataBytes) if maxDataBytes is not None else beat_bytes
         data_bits  = data_bytes << 3
         max_data   = (1 << data_bits) - 1
 
-        bus_off_mask = (1 << cfg.busBytes) - 1
+        bus_off_mask = (1 << busBytes) - 1
         offset = ar.addr & bus_off_mask
 
         datas = [random.randint(0, max_data) << (((beat_bytes * i + offset) & bus_off_mask) * 8) for i in

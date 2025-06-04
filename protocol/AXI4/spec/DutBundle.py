@@ -1,43 +1,10 @@
 from dataclasses import dataclass
-from typing import List, Optional, Any
+from typing import Optional
 from PyVeriUtils.SignalBinding.signalBinding import DecoupledIO
-from Flit import AxFlit, WBatch, RBatch, BFlit
-from Task import AxTask, WTask, RTask, BTask
+# from PyVeriUtils.protocol.AXI4.spec.Task import AxTask, WTask, RTask, BTask
+from PyVeriUtils.protocol.AXI4.spec.DutBundleCfg import AxiBundleCfg, AxCfg, WCfg, RCfg, BCfg
 
-# -------------------------------------
-# Channel Configurations
-# -------------------------------------
-@dataclass
-class AxCfg:
-    has_lock: bool = False
-    has_cache: bool = False
-    has_prot: bool = False
-    has_qos: bool = False
-    has_region: bool = False
-    has_user: bool = False
 
-@dataclass
-class WCfg:
-    has_user: bool = False
-
-@dataclass
-class BCfg:
-    has_user: bool = False
-
-@dataclass
-class RCfg:
-    has_user: bool = False
-
-@dataclass
-class AxiBundleCfg:
-    prefix: str = "axi"
-    hierarchy: Optional[str] = None,
-    # A None value for the Channel Cfg indicates that the bundle does not include this channel.
-    aw: Optional[AxCfg] = AxCfg()
-    w : Optional[WCfg ] = WCfg ()
-    b : Optional[BCfg ] = BCfg ()
-    ar: Optional[AxCfg] = AxCfg()
-    r : Optional[RCfg ] = RCfg ()
 
 # -------------------------------------
 # DecoupledIO Bundles for Axi Channel
@@ -63,7 +30,7 @@ class AxBundle(DecoupledIO):
         super().__init__(dut, fields, prefix, hierarchy)
         self.cfg = cfg
 
-    def send(self, task: AxTask):
+    def send(self, task):
         """
             Send tasks generated in env to dut.
         """
@@ -107,7 +74,7 @@ class WBundle(DecoupledIO):
         super().__init__(dut, fields, prefix, hierarchy)
         self.cfg = cfg
 
-    def send(self, task: WTask):
+    def send(self, task):
         """
             Send tasks generated in env to dut.
         """
@@ -139,7 +106,7 @@ class RBundle(DecoupledIO):
         super().__init__(dut, fields, prefix, hierarchy)
         self.cfg = cfg
 
-    def send(self, task: RTask):
+    def send(self, task):
         """
             Send tasks generated in env to dut.
         """
@@ -171,7 +138,7 @@ class BBundle(DecoupledIO):
         super().__init__(dut, fields, prefix, hierarchy)
         self.cfg = cfg
 
-    def send(self, task: BTask):
+    def send(self, task):
         """
             Send tasks generated in env to dut.
         """

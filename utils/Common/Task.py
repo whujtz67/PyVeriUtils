@@ -1,4 +1,4 @@
-from pyVeriUtils.utils.Logger.Logger import BaseLogger
+from PyVeriUtils.utils.Logger.Logger import BaseLogger
 
 class BaseTask(BaseLogger):
     def __init__(

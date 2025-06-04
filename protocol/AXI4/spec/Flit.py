@@ -4,9 +4,9 @@ import random
 from typing import List, Generic, TypeVar, Optional, Tuple
 from Encodings import BurstType, RespType
 
-from pyVeriUtils.utils.Common.Counter import UpCounter
-from pyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
-from pyVeriUtils.protocol.AXI4.spec.DutBundle import AxBundle, WBundle, RBundle, BBundle
+from PyVeriUtils.utils.Common.Counter import UpCounter
+from PyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
+from PyVeriUtils.protocol.AXI4.spec.DutBundle import AxBundle, WBundle, RBundle, BBundle
 
 T = TypeVar('T')
 

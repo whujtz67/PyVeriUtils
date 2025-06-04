@@ -1,10 +1,10 @@
 from typing import Optional
 
-from pyVeriUtils.utils.Common.Task import BaseTask
-from pyVeriUtils.protocol.AXI4.spec.Encodings import Channel
-from pyVeriUtils.protocol.AXI4.spec.DutBundle import AxBundle, WBundle, RBundle, BBundle
-from pyVeriUtils.protocol.AXI4.spec.Flit import AxFlit, WBatch, RBatch, BFlit, WFlit, RFlit
-from pyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
+from PyVeriUtils.utils.Common.Task import BaseTask
+from PyVeriUtils.protocol.AXI4.spec.Encodings import Channel
+from PyVeriUtils.protocol.AXI4.spec.DutBundle import AxBundle, WBundle, RBundle, BBundle
+from PyVeriUtils.protocol.AXI4.spec.Flit import AxFlit, WBatch, RBatch, BFlit, WFlit, RFlit
+from PyVeriUtils.protocol.AXI4.components.Parameters import AxiAgentCfg
 
 
 class AxTask(BaseTask):

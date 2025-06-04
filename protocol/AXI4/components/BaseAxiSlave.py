@@ -1,8 +1,8 @@
 from Parameters import AxiAgentCfg
-from pyVeriUtils.protocol.AXI4.spec.DutBundle import Axi4Bundle
-from pyVeriUtils.protocol.AXI4.spec.Task import AxTask, WTask, RTask, BTask
-from pyVeriUtils.utils.Common.Queue import Queue
-from pyVeriUtils.protocol.AXI4.spec.Encodings import Channel
+from PyVeriUtils.protocol.AXI4.spec.DutBundle import Axi4Bundle
+from PyVeriUtils.protocol.AXI4.spec.Task import AxTask, WTask, RTask, BTask
+from PyVeriUtils.utils.Common.Queue import Queue
+from PyVeriUtils.protocol.AXI4.spec.Encodings import Channel
 
 class BaseAxiSlave:
     def __init__(

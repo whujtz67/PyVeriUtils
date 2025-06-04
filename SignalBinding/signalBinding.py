@@ -2,11 +2,11 @@ from typing import List, Optional
 
 class SignalBinding:
     """
-        The 'SignalBinding' module decouples signals from the DUT and binds them to instances of a Python class.
+        The 'signalBinding' module decouples signals from the DUT and binds them to instances of a Python class.
         The rationale for this approach over directly accessing/assigning signals via dut.xxx.xxx (recommended by Cocotb’s official guidelines) is to improve code reusability.
 
         For example, if there are multiple Axi Master Bundles with identical structures but different numbering,
-        using Cocotb’s official approach would require individual assignments for each Bundle.
+        using Cocotb's official approach would require individual assignments for each Bundle.
         However, by decoupling and binding signals, a single function can handle all cases by passing the decoupled signal instances as arguments.
     """
     @staticmethod

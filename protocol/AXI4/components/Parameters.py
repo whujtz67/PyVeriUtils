@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 import math
 
-from pyVeriUtils.protocol.AXI4.spec.DutBundle import AxiBundleCfg
+from PyVeriUtils.protocol.AXI4.spec.DutBundle import AxiBundleCfg
 
 
 class AxiAgentCfg:

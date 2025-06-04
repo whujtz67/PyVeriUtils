@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Optional, Any
-from pyVeriUtils.SignalBinding.signalBinding import DecoupledIO
+from PyVeriUtils.SignalBinding.signalBinding import DecoupledIO
 from Flit import AxFlit, WBatch, RBatch, BFlit
 from Task import AxTask, WTask, RTask, BTask
 

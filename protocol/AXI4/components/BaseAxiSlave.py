@@ -57,7 +57,7 @@ class BaseAxiSlave:
                 RTask.random_gen(
                     ar = self.ar_queue.peek().flit,
                     maxDataBytes = self.cfg.maxDataBytes,
-                    busBytes = self.cfg.busBytes,
+                    busSize = self.cfg.busSize,
                     alloc_cycle = self.dut.cycles.value.integer,
                     timeout_threshold = self.cfg.timeout_threshold,
                     label = self.name

@@ -158,6 +158,8 @@ class RBatch(Generic[T]):
         return self.beat == (len(self.datas) - 1)
 
     def data(self) -> int:
+        # print(f"datas = {self.datas}")
+        # print(f"Send R data {self.datas[self.beat]}")
         return self.datas[self.beat]
 
     @classmethod
@@ -165,17 +167,33 @@ class RBatch(Generic[T]):
             cls,
             ar: AxFlit,
             maxDataBytes: int,
-            busBytes: int
+            busSize: int
     ) -> "RBatch":
         beat_bytes = 1 << ar.size
         data_bytes = min(beat_bytes, maxDataBytes) if maxDataBytes is not None else beat_bytes
         data_bits  = data_bytes << 3
         max_data   = (1 << data_bits) - 1
 
-        bus_off_mask = (1 << busBytes) - 1
+        print(maxDataBytes)
+        print(data_bytes)
+
+        bus_bytes = 1 << busSize
+        bus_bits  = bus_bytes << 3
+
+        bus_off_mask = (1 << busSize) - 1
         offset = ar.addr & bus_off_mask
 
-        datas = [(random.randint(0, max_data) << (((beat_bytes * i + offset) % busBytes) * 8)) & bus_off_mask
-                 for i in range(0, ar.len + 1)]
+        bus_data_mask = (1 << bus_bits) - 1 # The data generated should not be greater than (1 << bus_bytes) - 1!
+
+        datas = []
+
+        for i in range(ar.len + 1):
+            valid_data   = random.randint(0, max_data)
+            data_off     = ((beat_bytes * i + offset) % bus_bytes) << 3
+            shifted_data = valid_data << data_off
+            data         = shifted_data & bus_data_mask
+            datas.append(data)
+
+        # print(f"Random Generate R data {[hex(d) for d in datas]}")
 
         return cls(ar.id, datas)

@@ -143,13 +143,15 @@ class RTask(BaseTask):
 			cls,
 			ar: AxFlit,
 			maxDataBytes: int,
-			busBytes: int,
+			busSize: int,
 			alloc_cycle: int,
 			timeout_threshold: int = 10000,
 			label: Optional[str] = None
 	) -> "RTask":
 		task = cls(alloc_cycle, timeout_threshold, label)
-		task.batch = RBatch.random_gen(ar, maxDataBytes, busBytes)
+		task.batch = RBatch.random_gen(ar, maxDataBytes, busSize)
+
+		print(f"RTask Batch: {task.batch.datas}")
 
 		return task
 

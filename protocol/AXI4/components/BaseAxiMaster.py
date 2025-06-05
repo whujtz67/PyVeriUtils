@@ -89,6 +89,19 @@ class BaseAxiMaster:
                     label = self.name
             ))
 
+    def update_req(self):
+        if self.io.aw.fire():
+            self.aw_queue.deq()
+
+        if self.io.w.fire():
+            if self.w_queue.peek().batch.last():
+                self.w_queue.deq()
+            else:
+                self.w_queue.peek().batch.beat_incr()
+
+        if self.io.ar.fire():
+            self.ar_queue.deq()
+
     def drive_phase(self):
         """
         Delta-cycle phase 1: drive inputs to the DUT.
@@ -119,6 +132,7 @@ class BaseAxiMaster:
         This must follow the `drive_phase()` in the same simulation cycle.
         """
         self.recv()
+        self.update_req()
 
 
 

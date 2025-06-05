@@ -130,6 +130,9 @@ class WBatch(Generic[T]):
 
     def strb(self) -> int:
         return self.strbs[self.beat]
+    
+    def beat_incr(self) -> None:
+        self.beat += 1
 
     @classmethod
     def random_gen(
@@ -161,6 +164,9 @@ class RBatch(Generic[T]):
         # print(f"datas = {self.datas}")
         # print(f"Send R data {self.datas[self.beat]}")
         return self.datas[self.beat]
+    
+    def beat_incr(self) -> None:
+        self.beat += 1
 
     @classmethod
     def random_gen(
@@ -173,9 +179,6 @@ class RBatch(Generic[T]):
         data_bytes = min(beat_bytes, maxDataBytes) if maxDataBytes is not None else beat_bytes
         data_bits  = data_bytes << 3
         max_data   = (1 << data_bits) - 1
-
-        print(maxDataBytes)
-        print(data_bytes)
 
         bus_bytes = 1 << busSize
         bus_bits  = bus_bytes << 3

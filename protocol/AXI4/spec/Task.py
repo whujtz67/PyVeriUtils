@@ -151,8 +151,6 @@ class RTask(BaseTask):
 		task = cls(alloc_cycle, timeout_threshold, label)
 		task.batch = RBatch.random_gen(ar, maxDataBytes, busSize)
 
-		print(f"RTask Batch: {task.batch.datas}")
-
 		return task
 
 class BTask(BaseTask):

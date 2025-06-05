@@ -94,6 +94,16 @@ class BaseAxiSlave:
         else:
             self.io.b.valid.value = 0
 
+    def update_resp(self):
+        if self.io.r.fire():
+            if self.r_queue.peek().batch.last():
+                self.r_queue.deq()
+            else:
+                self.r_queue.peek().batch.beat_incr()
+
+        if self.io.b.fire():
+            self.b_queue.deq()
+
     def recv(self):
         if self.io.aw.fire():
             aw_task = AxTask.recv(
@@ -156,3 +166,4 @@ class BaseAxiSlave:
         # Unlike master, resp_alloc() should be in sample_phase in slave,
         # because it depends on handshake signals to decide whether to allocate or not.
         self.resp_alloc()
+        self.update_resp()

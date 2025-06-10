@@ -15,7 +15,7 @@ class Queue(Generic[T]):
         self.name: str = f"{label}_Queue" if label is not None else "Queue"
 
         self.queue: Deque[T] = deque()
-        self.depth: Optional[int] = None
+        self.depth: Optional[int] = depth
 
     def is_empty(self) -> bool:
         return len(self.queue) == 0

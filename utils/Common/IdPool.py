@@ -2,9 +2,10 @@ class IdPool:
     ID_EMPTY = 677
 
     def __init__(self, size, name="id pool", start = 0):
-        self.pool = list(range(start, size + start))
-        self.size = size
-        self.name = name
+        self.pool  = list(range(start, size + start))
+        self.start = start
+        self.size  = size
+        self.name  = name
 
     def list(self):
         """
@@ -35,6 +36,9 @@ class IdPool:
         if id in self.pool:
             raise ValueError(f'id {id} is already in {self.name}')
         self.pool.append(id)
+
+    def release_all(self):
+        self.pool = list(range(self.start, self.size + self.start))
 
     def is_empty(self):
         return len(self.pool) == 0

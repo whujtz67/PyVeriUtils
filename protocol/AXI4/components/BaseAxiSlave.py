@@ -137,6 +137,16 @@ class BaseAxiSlave:
             self.ar_queue.enq(ar_task)
             self.ar_check_queue.enq(ar_task)
 
+    # We don't check by default
+    def check(self):
+        # TODO: make check configurable
+        if not self.aw_check_queue.is_empty():
+            self.aw_check_queue.deq()
+        if not self.ar_check_queue.is_empty():
+            self.ar_check_queue.deq()
+        if not self.w_check_queue.is_empty():
+            self.w_check_queue.deq()
+
     def drive_phase(self):
         """
         Delta-cycle phase 1: drive output signals to the DUT.
@@ -167,3 +177,4 @@ class BaseAxiSlave:
         # because it depends on handshake signals to decide whether to allocate or not.
         self.resp_alloc()
         self.update_resp()
+        self.check()

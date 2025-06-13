@@ -1,6 +1,5 @@
-from dataclasses import dataclass
 from typing import Optional
-from PyVeriUtils.SignalBinding.signalBinding import DecoupledIO
+from PyVeriUtils.signals.Hardware.signalBinding import DecoupledIO
 # from PyVeriUtils.protocol.AXI4.spec.Task import AxTask, WTask, RTask, BTask
 from PyVeriUtils.protocol.AXI4.spec.DutBundleCfg import AxiBundleCfg, AxCfg, WCfg, RCfg, BCfg
 
@@ -143,7 +142,7 @@ class BBundle(DecoupledIO):
             Send tasks generated in env to dut.
         """
         self.bits.id.value = task.flit.id
-        self.bits.resp.value = task.flit.resp
+        self.bits.resp.value = task.flit.resp.value
 
         if self.cfg.has_user:
             self.bits.user.value = task.flit.user

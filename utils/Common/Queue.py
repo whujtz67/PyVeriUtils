@@ -24,12 +24,15 @@ class Queue(Generic[T]):
         return len(self.queue) == self.depth if self.depth is not None else False
 
     def enq(self, bits: T) -> None:
-        assert not self.is_full(), "The queue is already full!"
+        assert not self.is_full(), f"{self.name} is already full!"
 
         self.queue.append(bits)
 
     def deq(self) -> None:
         self.queue.popleft()
+
+    def popleft(self) -> T:
+        return self.queue.popleft()
 
     def peek(self) -> T:
         return self.queue[0]

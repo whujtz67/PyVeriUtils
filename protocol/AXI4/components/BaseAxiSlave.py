@@ -79,7 +79,7 @@ class BaseAxiSlave:
         # Therefore, the assertion of the ready signals for the aw/ar channels
         # does not depend on whether the check_queue is full.
         self.io.aw.ready.value = int(not self.aw_queue.is_full())
-        self.io.w .ready.value = int(not self.w_check_queue.is_full())
+        self.io.w .ready.value = int(not self.w_check_queue.is_full() and not self.aw_queue.is_empty())
         self.io.ar.ready.value = int(not self.ar_queue.is_full())
 
     # TODO: decouple tx valid set from send.

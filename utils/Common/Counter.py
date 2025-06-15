@@ -4,6 +4,7 @@ class UpCounter:
 
         self.name = name
         self.count = start
+        self.start = start
         self.end = end
 
     def __str__(self):
@@ -11,6 +12,9 @@ class UpCounter:
 
     def incr(self, delta: int = 1):
         self.count += delta
+
+    def restart(self):
+        self.count = self.start
 
     def count_done(self):
         return self.count >= self.end

@@ -184,19 +184,22 @@ class RBatch(Generic[T]):
         bus_bits  = bus_bytes << 3
 
         bus_off_mask = (1 << busSize) - 1
-        offset = ar.addr & bus_off_mask
+        base_offset = ar.addr & bus_off_mask
 
         bus_data_mask = (1 << bus_bits) - 1 # The data generated should not be greater than (1 << bus_bytes) - 1!
 
         datas = []
 
+        beat_offset = base_offset
+
         for i in range(ar.len + 1):
+            print(ar.len)
             valid_data   = random.randint(0, max_data)
-            data_off     = ((beat_bytes * i + offset) % bus_bytes) << 3
+            data_off     = beat_offset << 3
             shifted_data = valid_data << data_off
             data         = shifted_data & bus_data_mask
             datas.append(data)
 
-        # print(f"Random Generate R data {[hex(d) for d in datas]}")
+            beat_offset = 0 if (beat_offset + beat_bytes) >= bus_bytes else beat_offset + beat_bytes # consider unaligned transfer
 
         return cls(ar.id, datas)

@@ -42,3 +42,10 @@ class Queue(Generic[T]):
 
     def len(self) -> int:
         return len(self.queue)
+    
+    def list(self) -> None:
+        print(f"---- {self.name} Contents ({len(self.queue)} items) ----")
+        for i, item in enumerate(self.queue):
+            print(f"[{i}] {item}")
+        print("---- End of Queue ----")
+    

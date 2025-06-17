@@ -80,7 +80,7 @@ class WFlit(Generic[T]):
 @dataclass
 class RFlit(Generic[T]):
     id: int
-    data: List[int]
+    data: int
     resp: RespType
     last: bool
     user: Optional[T] = None
@@ -186,20 +186,23 @@ class RBatch(Generic[T]):
         bus_off_mask = (1 << busSize) - 1
         base_offset = ar.addr & bus_off_mask
 
-        bus_data_mask = (1 << bus_bits) - 1 # The data generated should not be greater than (1 << bus_bytes) - 1!
+        bus_data_mask = (1 << bus_bits) - 1  # The data generated should not be greater than bus_data_mask!
 
         datas = []
 
         beat_offset = base_offset
 
+        # print(f"[RANDOM_GEN_RBatch] AR addr = {hex(ar.addr)}, id = {hex(ar.id)}, size = {hex(ar.size)}, len = {ar.len}")
+
         for i in range(ar.len + 1):
-            print(ar.len)
             valid_data   = random.randint(0, max_data)
             data_off     = beat_offset << 3
             shifted_data = valid_data << data_off
             data         = shifted_data & bus_data_mask
             datas.append(data)
 
-            beat_offset = 0 if (beat_offset + beat_bytes) >= bus_bytes else beat_offset + beat_bytes # consider unaligned transfer
+            # print(f"[RANDOM_GEN_RBatch] Beat {i}: beat_offset = {beat_offset}, data = {hex(data)}")
+
+            beat_offset = 0 if (beat_offset + beat_bytes) >= bus_bytes else beat_offset + beat_bytes
 
         return cls(ar.id, datas)

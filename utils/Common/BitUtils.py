@@ -24,6 +24,32 @@ class BitUtils:
         return bit_en
 
     @staticmethod
+    def nbe_to_be(nbe: int) -> int:
+        """
+        Convert nibble-enable (nbe) to byte-enable (be).
+
+        Args:
+            nbe (int): Nibble-enable bitmask. Each bit represents a 4-bit nibble.
+            nbits (int): Total number of valid nibble bits (optional).
+                         If not given, will use nbe.bit_length().
+
+        Returns:
+            int: Byte-enable bitmask. Each bit represents an 8-bit byte.
+        """
+        be = 0
+
+        nbits = nbe.bit_length()
+
+        for i in range(0, nbits, 2):
+            # Extract the two nibbles (as bits)
+            nib0 = (nbe >> i) & 1
+            nib1 = (nbe >> (i + 1)) & 1
+            if nib0 or nib1:
+                be |= (1 << (i >> 1))
+
+        return be
+
+    @staticmethod
     def slice_by_stride(data: int, total_bits: int, stride: int) -> List[int]:
         """
         Splits `data` from LSB to MSB into chunks of `stride` bits.

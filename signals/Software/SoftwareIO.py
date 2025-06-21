@@ -16,13 +16,26 @@ class sValidIO(Generic[T]):
     def fire(self) -> bool:
         return self.valid
 
+    def set_and_validate(self, bits: T) -> None:
+        self.bits = bits
+        self.valid = True
+
+    def clear(self) -> None:
+        self.bits = None
+        self.valid = False
+
 class sDecoupledIO(sValidIO[T]):
-    def __init__(self, bits: T):
-        super().__init__(bits = bits)
+    def __init__(self):
+        super().__init__()
         self.ready = False
 
     def fire(self) -> bool:
         return self.valid and self.ready
+
+    def clear(self):
+        self.bits = None
+        self.valid = False
+        self.ready = False
 
 class sCommonIO(Generic[T_IN, T_OUT]):
     def __init__(self):

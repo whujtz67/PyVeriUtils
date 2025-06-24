@@ -25,6 +25,7 @@ class sValidIO(Generic[T]):
         self.valid = False
 
 class sDecoupledIO(sValidIO[T]):
+    bits: Optional[T]
     def __init__(self):
         super().__init__()
         self.ready = False
